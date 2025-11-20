@@ -71,6 +71,70 @@
   display: block;
 }
 
+.poster-placeholder {
+  width: 150px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f5f9;
+  color: #64748b;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+/* Movie detail page styles */
+.movie-detail {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+.detail-header {
+  margin-bottom: 0.5rem;
+}
+.back-link {
+  color: #1e293b;
+  text-decoration: none;
+}
+.detail-body {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+.detail-poster {
+  width: 220px;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.detail-poster.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f5f9;
+  color: #64748b;
+}
+.detail-info h2 {
+  margin-top: 0;
+}
+.detail-desc {
+  color: #475569;
+}
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+}
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .card-content {
   padding: 0.6rem 0.4rem 0.2rem;
   text-align: center;

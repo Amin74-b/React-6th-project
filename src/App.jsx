@@ -4,7 +4,8 @@ import MovieList from "./components/MovieList";
 import Filter from "./components/Filter";
 import MovieDetail from "./pages/MovieDetail";
 import { Routes, Route } from "react-router-dom";
-const MoviesImage = "./react hooks images/";
+// Use an absolute path so images resolve correctly on nested routes
+const MoviesImage = "/react hooks images/";
 
 function App() {
   // الأفلام
@@ -37,17 +38,48 @@ function App() {
     movie.rating >= rateFilter
   );
 
-  // إضافة فيلم جديد
+  // helper: normalize YouTube links to embed url
+  const normalizeTrailerURL = (url) => {
+    if (!url) return "";
+    try {
+      const u = url.trim();
+      // if already embed
+      if (u.includes("/embed/")) return u;
+      // youtu.be short link
+      const short = u.match(/youtu\.be\/(.+)$/);
+      if (short) return `https://www.youtube.com/embed/${short[1]}`;
+      // standard watch?v=
+      const watch = u.match(/[?&]v=([^&]+)/);
+      if (watch) return `https://www.youtube.com/embed/${watch[1]}`;
+      // if it's just an id-like string (11 chars)
+      if (/^[A-Za-z0-9_-]{11}$/.test(u)) return `https://www.youtube.com/embed/${u}`;
+      // otherwise return as-is (may be an embed-capable url)
+      return u;
+    } catch (e) {
+      return "";
+    }
+  };
+
+  // إضافة فيلم جديد (asks for trailer URL too, normalizes it)
   const addMovie = () => {
+    const title = prompt("Movie title?") || "Untitled";
+    const description = prompt("Description?") || "";
+    const poster = prompt("Poster URL?") || "";
+    const ratingRaw = prompt("Rating? (0-5)") || "0";
+    const rating = Number(ratingRaw) || 0;
+    const trailerInput = prompt("Trailer URL (YouTube link or id)?") || "";
+    const trailerURL = normalizeTrailerURL(trailerInput);
+
     const newMovie = {
       id: movies.length + 1,
-      title: prompt("Movie title?"),
-      description: prompt("Description?"),
-      posterURL: prompt("Poster URL?"),
-      rating: Number(prompt("Rating?")),
+      title,
+      description,
+      posterURL: poster,
+      rating,
+      trailerURL,
     };
 
-    setMovies([...movies, newMovie]);
+    setMovies((prev) => [...prev, newMovie]);
   };
 
   return (
