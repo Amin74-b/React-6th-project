@@ -6,6 +6,7 @@ function MovieList({ movies }) {
       {movies.map((movie) => (
         <MovieCard
           key={movie.id}
+          id={movie.id}
           title={movie.title}
           description={movie.description}
           posterURL={movie.posterURL}

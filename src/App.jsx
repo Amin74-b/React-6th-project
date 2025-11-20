@@ -2,6 +2,8 @@ import { useState } from "react";
 import "./App.css";
 import MovieList from "./components/MovieList";
 import Filter from "./components/Filter";
+import MovieDetail from "./pages/MovieDetail";
+import { Routes, Route } from "react-router-dom";
 const MoviesImage = "./react hooks images/";
 
 function App() {
@@ -10,16 +12,18 @@ function App() {
     {
       id: 1,
       title: "Interstellar",
-      description: "A space masterpiece",
+      description: "A space masterpiece about time, love and relativity.",
       posterURL: MoviesImage + "movie img.jpg",
       rating: 5,
+      trailerURL: "https://www.youtube.com/embed/zSWdZVtXT7E",
     },
     {
       id: 2,
       title: "Inception",
-      description: "Dream inside a dream",
+      description: "A heist inside the architecture of the mind.",
       posterURL: MoviesImage + "movie img 2.jpg",
       rating: 4,
+      trailerURL: "https://www.youtube.com/embed/YoHD9XEInc0",
     },
   ]);
 
@@ -47,15 +51,24 @@ function App() {
   };
 
   return (
-    <div>
-      <h1>🎬 My Movie App</h1>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <div>
+            <h1>🎬 My Movie App</h1>
 
-      <Filter setTitleFilter={setTitleFilter} setRateFilter={setRateFilter} />
+            <Filter setTitleFilter={setTitleFilter} setRateFilter={setRateFilter} />
 
-      <button onClick={addMovie}>Add Movie</button>
+            <button onClick={addMovie}>Add Movie</button>
 
-      <MovieList movies={filteredMovies} />
-    </div>
+            <MovieList movies={filteredMovies} />
+          </div>
+        }
+      />
+
+      <Route path="/movie/:id" element={<MovieDetail movies={movies} />} />
+    </Routes>
   );
 }
 

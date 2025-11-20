@@ -1,6 +1,8 @@
-function MovieCard({ title, description, posterURL, rating }) {
+import { Link } from "react-router-dom";
+
+function MovieCard({ id, title, description, posterURL, rating }) {
   return (
-    <div className="card movie-card" role="article" aria-label={title}>
+    <Link to={`/movie/${id}`} className="card movie-card" role="link" aria-label={title}>
       <img src={posterURL} alt={title} className="poster" />
 
       <div className="card-content">
@@ -8,7 +10,7 @@ function MovieCard({ title, description, posterURL, rating }) {
         <p className="movie-desc">{description}</p>
         <p className="movie-rating">⭐ {rating}</p>
       </div>
-    </div>
+    </Link>
   );
 }
 
